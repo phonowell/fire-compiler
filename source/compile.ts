@@ -6,58 +6,51 @@ import compileYaml from './compileYaml'
 
 // interface
 
+type Ext = typeof listExt[number]
+
+type Option<S> = S extends SourceExt<'.coffee'>
+  ? OptionCoffee
+  : S extends SourceExt<'.pug'>
+  ? OptionPug
+  : S extends SourceExt<'.styl'>
+  ? never
+  : S extends SourceExt<'.ts'>
+  ? OptionTs
+  : S extends SourceExt<'.yaml'>
+  ? never
+  : Record<string, unknown>
+
+type SourceExt<E extends Ext> = `${string}${E}`
+
+// varialbe
+
+const listExt = ['.coffee', '.pug', '.styl', '.ts', '.yaml'] as const
+
 // function
 
-const isCoffee = (source: string): source is `${string}.coffee` =>
-  source.endsWith('.coffee')
+const isSourceExt = <E extends Ext>(
+  source: string,
+  ext: E
+): source is SourceExt<E> => source.endsWith(ext)
 
-const isPug = (source: string): source is `${string}.pug` =>
-  source.endsWith('.pug')
-
-const isStyl = (source: string): source is `${string}.styl` =>
-  source.endsWith('.styl')
-
-const isTs = (source: string): source is `${string}.ts` =>
-  source.endsWith('.ts')
-
-const isYaml = (source: string): source is `${string}.yaml` =>
-  source.endsWith('.yaml')
-
-const main = async <S extends string>(
-  source: S,
-  option?: S extends `${string}.coffee`
-    ? OptionCoffee
-    : S extends `${string}.pug`
-    ? OptionPug
-    : S extends `${string}.styl`
-    ? never
-    : S extends `${string}.ts`
-    ? OptionTs
-    : S extends `${string}.yaml`
-    ? never
-    : Record<string, unknown>
-) => {
-  if (isCoffee(source)) {
-    await compileCoffee(source, '', option || {})
+const main = async <S extends string>(source: S, option?: Option<S>) => {
+  if (isSourceExt(source, '.coffee')) {
+    await compileCoffee(source, '', option)
     return
   }
-
-  if (isPug(source)) {
-    await compilePug(source, '', option || {})
+  if (isSourceExt(source, '.pug')) {
+    await compilePug(source, '', option)
     return
   }
-
-  if (isStyl(source)) {
+  if (isSourceExt(source, '.styl')) {
     await compileStyl(source, '')
     return
   }
-
-  if (isTs(source)) {
-    await compileTs(source, '', option || {})
+  if (isSourceExt(source, '.ts')) {
+    await compileTs(source, '', option)
     return
   }
-
-  if (isYaml(source)) {
+  if (isSourceExt(source, '.yaml')) {
     await compileYaml(source, '')
     return
   }

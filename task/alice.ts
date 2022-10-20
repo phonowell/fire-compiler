@@ -22,7 +22,7 @@ const ask = async (list: string[]): Promise<string> => {
   return answer
 }
 
-const load = async (): Promise<string[]> => {
+const load = async () => {
   const listSource = await glob(['./task/*.js', './task/*.ts', '!*.d.ts'])
 
   const listResult = listSource.map(source => {
@@ -34,9 +34,7 @@ const load = async (): Promise<string[]> => {
 }
 
 const main = async () => {
-  const task = argv()._[0]
-    ? argv()._[0].toString()
-    : await (async () => ask(await load()))()
+  const task = argv()._[0] ? argv()._[0].toString() : await ask(await load())
 
   if (!task) return
   await run(task)

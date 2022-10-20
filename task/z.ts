@@ -8,7 +8,8 @@ const temp = './temp'
 // function
 
 const main = async () => {
-  const listSource = await $.glob('./temp/*')
+  await $.remove(temp)
+  const listSource = await $.glob(`${temp}/*`)
   for (const source of listSource) {
     await compiler.compile(source, {
       minify: true,
