@@ -6,6 +6,7 @@ import write from 'fire-keeper/dist/write'
 // interface
 
 type Option = {
+  importNib?: boolean
   minify?: boolean
 }
 
@@ -14,7 +15,12 @@ type Option = {
 const asCode = async (code: string, option: Option = {}) => {
   try {
     const result = await new Promise<string>(resolve => {
-      stylus.render(code, (_err, css) => resolve(css))
+      stylus.render(
+        option.importNib
+          ? ["@import 'node_modules/nib'", code].join('\n')
+          : code,
+        (_err, css) => resolve(css)
+      )
     })
     return option.minify ? csso.minify(result, { comments: false }).css : result
   } catch (err) {

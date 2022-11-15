@@ -8,13 +8,9 @@ const temp = './temp'
 // function
 
 const main = async () => {
-  await $.remove(temp)
-  const listSource = await $.glob(`${temp}/*`)
-  for (const source of listSource) {
-    await compiler.compile(source, {
-      minify: true,
-    })
-  }
+  const code = await $.read('./temp/z.styl')
+  if (!code) return
+  console.log(await compiler.compileStylAsCode(code))
 }
 
 // export

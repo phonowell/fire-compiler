@@ -9,6 +9,7 @@
     "csso": "^5.0.5",
     "fire-keeper": "^0.0.208",
     "lodash": "^4.17.21",
+    "nib": "^1.2.0",
     "prettier": "^2.7.1",
     "pug": "^3.0.2",
     "stylus": "^0.59.0"
@@ -64,5 +65,5 @@
   "sideEffects": false,
   "types": "./dist/index.d.ts",
   "url": "https://github.com/phonowell/fire-compiler",
-  "version": "0.0.3"
+  "version": "0.0.5"
 }

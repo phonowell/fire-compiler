@@ -14,7 +14,7 @@ specifiers:
   '@types/stylus': ^0.48.38
   '@typescript-eslint/eslint-plugin': ^5.43.0
   '@typescript-eslint/parser': ^5.43.0
-  coffee-ahk: 0.0.50
+  coffee-ahk: ^0.0.50
   csso: ^5.0.5
   eslint-config-prettier: ^8.5.0
   eslint-config-react-app: ^7.0.1
@@ -25,6 +25,7 @@ specifiers:
   eslint-plugin-react-hooks: ^4.6.0
   fire-keeper: ^0.0.208
   lodash: ^4.17.21
+  nib: ^1.2.0
   prettier: ^2.7.1
   pug: ^3.0.2
   rollup: ^3.3.0
@@ -42,6 +43,7 @@ dependencies:
   csso: 5.0.5
   fire-keeper: 0.0.208
   lodash: 4.17.21
+  nib: 1.2.0_stylus@0.59.0
   prettier: 2.7.1
   pug: 3.0.2
   stylus: 0.59.0
@@ -3861,6 +3863,14 @@ packages:
   /natural-compare-lite/1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
     dev: true
+
+  /nib/1.2.0_stylus@0.59.0:
+    resolution: {integrity: sha512-7HgrnMl/3yOmWykueO8/D0q+0iWwe7Z+CK2Eaq/xQV8w1hK80WN1oReRQkfkrztbAAnp/nTHkUSl5EcVkor6JQ==}
+    peerDependencies:
+      stylus: '*'
+    dependencies:
+      stylus: 0.59.0
+    dev: false
 
   /node-releases/2.0.6:
     resolution: {integrity: sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==}
