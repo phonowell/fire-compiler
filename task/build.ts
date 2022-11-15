@@ -3,32 +3,7 @@ import $ from 'fire-keeper'
 // function
 
 const main = async () => {
-  await replace()
   await replaceRollup()
-}
-
-const pickModule = async (): Promise<string> => {
-  const listModule = (await $.glob(['./source/*.ts', '!**/index.ts'])).map(
-    $.getBasename
-  )
-
-  return [
-    ...listModule.map(it => `import ${it} from './${it}'`),
-    'const $ = {',
-    `  ${listModule.join(', ')},`,
-    '}',
-    'export default $',
-  ].join('\n')
-}
-
-const replace = async () => {
-  const content = [await pickModule(), '', '// ---']
-
-  const cont = await $.read<string>('./source/index.ts')
-  if (!cont) return
-
-  const result = cont.replace(/[\s\S]*\/\/\s---/u, content.join('\n'))
-  await $.write('./source/index.ts', result)
 }
 
 const replaceRollup = async () => {

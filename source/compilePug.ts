@@ -10,23 +10,28 @@ type Option = {
 
 // function
 
-const main = async (
+const asCode = async (code: string, option: Option = {}) => {
+  try {
+    return pug.render(code, { pretty: !option.minify })
+  } catch (err) {
+    console.log(err)
+    return
+  }
+}
+
+const asFile = async (
   source: `${string}.pug`,
   target = '',
   option: Option = {}
 ) => {
-  try {
-    const t = target || source.replace('.pug', '.html')
-    const content = await read<string>(source)
-    const result = pug.render(content, {
-      pretty: !option.minify,
-    })
-    await write(t, result)
-  } catch (err) {
-    console.log(err)
-  }
+  const code = await read<string>(source)
+  if (!code) return
+
+  const t = target || source.replace('.pug', '.html')
+
+  await write(t, await asCode(code, option))
 }
 
 // export
-export default main
 export type { Option }
+export { asCode, asFile }

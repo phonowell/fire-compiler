@@ -1,4 +1,5 @@
 import c2a from 'coffee-ahk'
+import read from 'fire-keeper/dist/read'
 import write from 'fire-keeper/dist/write'
 
 // interface
@@ -9,23 +10,25 @@ type Option = {
 
 // function
 
-const main = async (
+const asCode = (code: string, option: Option = {}) =>
+  c2a(code, {
+    salt: option.salt,
+    save: false,
+  })
+
+const asFile = async (
   source: `${string}.coffee`,
   target = '',
   option: Option = {}
 ) => {
-  try {
-    const t = target || source.replace('.coffee', '.ahk')
-    const result = await c2a(source, {
-      salt: option.salt,
-      save: false,
-    })
-    await write(t, result)
-  } catch (err) {
-    console.log(err)
-  }
+  const code = await read<string>(source)
+  if (!code) return
+
+  const t = target || source.replace('.coffee', '.ahk')
+
+  await write(t, await asCode(code, option))
 }
 
 // export
-export default main
 export type { Option }
+export { asCode, asFile }

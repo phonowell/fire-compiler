@@ -3,7 +3,7 @@ import write from 'fire-keeper/dist/write'
 
 // function
 
-const main = async (source: `${string}.yaml`, target = '') => {
+const asFile = async (source: `${string}.yaml`, target = '') => {
   try {
     const t = target || source.replace('.yaml', '.json')
     await write(t, await read(source))
@@ -13,4 +13,4 @@ const main = async (source: `${string}.yaml`, target = '') => {
 }
 
 // export
-export default main
+export { asFile }

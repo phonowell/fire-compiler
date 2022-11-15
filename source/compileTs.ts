@@ -1,5 +1,6 @@
 import * as swc from '@swc/core'
 import prettier from 'prettier'
+import read from 'fire-keeper/dist/read'
 import write from 'fire-keeper/dist/write'
 
 // interface
@@ -23,15 +24,9 @@ type Option = {
 
 // function
 
-const main = async (
-  source: `${string}.ts`,
-  target = '',
-  option: Option = {}
-) => {
+const asCode = async (code: string, option: Option = {}) => {
   try {
-    if (source.endsWith('.d.ts')) return
-    const t = target || source.replace('.ts', '.js')
-    const raw = await swc.transformFile(source, {
+    const result = await swc.transform(code, {
       jsc: {
         parser: {
           syntax: 'typescript',
@@ -45,15 +40,30 @@ const main = async (
       module: { type: option.module || 'commonjs' },
       sourceMaps: !!option.sourceMaps,
     })
-    const result = option.minify
-      ? raw.code
-      : prettier.format(raw.code, { parser: 'babel' })
-    await write(t, result)
+    return option.minify
+      ? result.code
+      : prettier.format(result.code, { parser: 'babel' })
   } catch (err) {
     console.log(err)
+    return
   }
 }
 
+const asFile = async (
+  source: `${string}.ts`,
+  target = '',
+  option: Option = {}
+) => {
+  if (source.endsWith('.d.ts')) return
+
+  const content = await read(source)
+  if (!content) return
+
+  const t = target || source.replace('.ts', '.js')
+
+  await write(t, await asCode(content, option))
+}
+
 // export
-export default main
 export type { Option }
+export { asCode, asFile }
