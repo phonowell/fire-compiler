@@ -1,7 +1,7 @@
-import csso from 'csso'
+import { minify } from 'csso'
 import read from 'fire-keeper/dist/read'
-import stylus from 'stylus'
 import write from 'fire-keeper/dist/write'
+import stylus from 'stylus'
 
 // interface
 
@@ -19,10 +19,10 @@ const asCode = async (code: string, option: Option = {}) => {
         option.importNib
           ? ["@import 'node_modules/nib'", code].join('\n')
           : code,
-        (_err, css) => resolve(css)
+        (_err, css) => resolve(css),
       )
     })
-    return option.minify ? csso.minify(result, { comments: false }).css : result
+    return option.minify ? minify(result, { comments: false }).css : result
   } catch (err) {
     console.log(err)
     return
@@ -32,7 +32,7 @@ const asCode = async (code: string, option: Option = {}) => {
 const asFile = async (
   source: `${string}.styl`,
   target = '',
-  option: Option = {}
+  option: Option = {},
 ) => {
   const code = await read<string>(source)
   if (!code) return

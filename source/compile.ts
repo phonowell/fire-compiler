@@ -2,22 +2,14 @@ import {
   asFile as compileCoffeeAsFile,
   Option as OptionCoffee,
 } from './compileCoffee'
-import {
-  asFile as compilePugAsFile,
-  Option as OptionPug,
-} from './compilePug'
-import {
-  asFile as compileStylAsFile,
-} from './compileStyl'
-import {
-  asFile as compileTsAsFile,
-  Option as OptionTs,
-} from './compileTs'
+import { asFile as compilePugAsFile, Option as OptionPug } from './compilePug'
+import { asFile as compileStylAsFile } from './compileStyl'
+import { asFile as compileTsAsFile, Option as OptionTs } from './compileTs'
 import { asFile as compileYamlAsFile } from './compileYaml'
 
 // interface
 
-type Ext = typeof listExt[number]
+type Ext = (typeof listExt)[number]
 
 type Option<S> = S extends SourceExt<'.coffee'>
   ? OptionCoffee
@@ -64,7 +56,7 @@ const asFile = async <S extends string>(source: S, option?: Option<S>) => {
 
 const isSourceExt = <E extends Ext>(
   source: string,
-  ext: E
+  ext: E,
 ): source is SourceExt<E> => source.endsWith(ext)
 
 // export
