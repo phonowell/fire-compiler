@@ -19,7 +19,7 @@ const asCode = (code: string, option: Option = {}) =>
 const asFile = async (
   source: `${string}.coffee`,
   target = '',
-  option: Option = {}
+  option: Option = {},
 ) => {
   const code = await read<string>(source)
   if (!code) return

@@ -1,7 +1,7 @@
 import * as swc from '@swc/core'
-import prettier from 'prettier'
 import read from 'fire-keeper/dist/read'
 import write from 'fire-keeper/dist/write'
+import prettier from 'prettier'
 
 // interface
 
@@ -52,7 +52,7 @@ const asCode = async (code: string, option: Option = {}) => {
 const asFile = async (
   source: `${string}.ts`,
   target = '',
-  option: Option = {}
+  option: Option = {},
 ) => {
   if (source.endsWith('.d.ts')) return
 

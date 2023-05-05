@@ -1,10 +1,11 @@
-import pug from 'pug'
 import read from 'fire-keeper/dist/read'
 import write from 'fire-keeper/dist/write'
+import pug from 'pug'
 
 // interface
 
 type Option = {
+  base?: string
   minify?: boolean
 }
 
@@ -12,7 +13,10 @@ type Option = {
 
 const asCode = async (code: string, option: Option = {}) => {
   try {
-    return pug.render(code, { pretty: !option.minify })
+    return pug.render(code, {
+      basedir: option.base,
+      pretty: !option.minify,
+    })
   } catch (err) {
     console.log(err)
     return
@@ -22,7 +26,7 @@ const asCode = async (code: string, option: Option = {}) => {
 const asFile = async (
   source: `${string}.pug`,
   target = '',
-  option: Option = {}
+  option: Option = {},
 ) => {
   const code = await read<string>(source)
   if (!code) return
