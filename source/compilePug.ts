@@ -1,5 +1,5 @@
-import read from 'fire-keeper/dist/read'
-import write from 'fire-keeper/dist/write'
+import read from 'fire-keeper/dist/esm/read'
+import write from 'fire-keeper/dist/esm/write'
 import pug from 'pug'
 
 // interface
@@ -18,16 +18,13 @@ const asCode = async (code: string, option: Option = {}) => {
       pretty: !option.minify,
     })
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.log(err)
     return
   }
 }
 
-const asFile = async (
-  source: `${string}.pug`,
-  target = '',
-  option: Option = {},
-) => {
+const asFile = async (source: string, target = '', option: Option = {}) => {
   const code = await read<string>(source)
   if (!code) return
 

@@ -1,6 +1,6 @@
 import { minify } from 'csso'
-import read from 'fire-keeper/dist/read'
-import write from 'fire-keeper/dist/write'
+import read from 'fire-keeper/dist/esm/read'
+import write from 'fire-keeper/dist/esm/write'
 import stylus from 'stylus'
 
 // interface
@@ -24,16 +24,13 @@ const asCode = async (code: string, option: Option = {}) => {
     })
     return option.minify ? minify(result, { comments: false }).css : result
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.log(err)
     return
   }
 }
 
-const asFile = async (
-  source: `${string}.styl`,
-  target = '',
-  option: Option = {},
-) => {
+const asFile = async (source: string, target = '', option: Option = {}) => {
   const code = await read<string>(source)
   if (!code) return
 

@@ -1,6 +1,6 @@
 import * as swc from '@swc/core'
-import read from 'fire-keeper/dist/read'
-import write from 'fire-keeper/dist/write'
+import read from 'fire-keeper/dist/esm/read'
+import write from 'fire-keeper/dist/esm/write'
 import prettier from 'prettier'
 
 // interface
@@ -44,16 +44,13 @@ const asCode = async (code: string, option: Option = {}) => {
       ? result.code
       : prettier.format(result.code, { parser: 'babel' })
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.log(err)
     return
   }
 }
 
-const asFile = async (
-  source: `${string}.ts`,
-  target = '',
-  option: Option = {},
-) => {
+const asFile = async (source: string, target = '', option: Option = {}) => {
   if (source.endsWith('.d.ts')) return
 
   const content = await read(source)
@@ -61,7 +58,7 @@ const asFile = async (
 
   const t = target || source.replace('.ts', '.js')
 
-  await write(t, await asCode(content, option))
+  await write(t, await asCode(content.toString(), option))
 }
 
 // export

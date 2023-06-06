@@ -4,7 +4,7 @@
     "url": "https://github.com/phonowell/fire-compiler/issues"
   },
   "dependencies": {
-    "@swc/core": "^1.3.56",
+    "@swc/core": "^1.3.62",
     "coffee-ahk": "^0.0.52",
     "csso": "^5.0.5",
     "fire-keeper": "^0.0.209",
@@ -17,30 +17,31 @@
   "description": "A little helper to make gulpfile(s) simple.",
   "devDependencies": {
     "@llc1123/eslint-config": "^1.6.0",
-    "@rollup/plugin-commonjs": "^24.1.0",
+    "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-json": "^6.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-node-resolve": "^15.1.0",
     "@types/csso": "^5.0.0",
-    "@types/lodash": "^4.14.194",
-    "@types/node": "^20.0.0",
-    "@types/prettier": "^2.7.2",
+    "@types/lodash": "^4.14.195",
+    "@types/node": "^20.2.5",
+    "@types/prettier": "^2.7.3",
     "@types/pug": "^2.0.6",
     "@types/rollup-plugin-auto-external": "^2.0.2",
     "@types/stylus": "^0.48.38",
-    "@typescript-eslint/eslint-plugin": "^5.59.2",
-    "@typescript-eslint/parser": "^5.59.2",
+    "@typescript-eslint/eslint-plugin": "^5.59.9",
+    "@typescript-eslint/parser": "^5.59.9",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "rollup": "^3.21.5",
+    "rollup": "^3.23.1",
     "rollup-plugin-auto-external": "^2.0.0",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-typescript2": "^0.34.1",
+    "rollup-plugin-visualizer": "^5.9.0",
     "ts-node": "^10.9.1",
-    "tslib": "^2.5.0",
-    "typescript": "^5.0.4"
+    "tslib": "^2.5.3",
+    "typescript": "^5.1.3"
   },
   "files": [
     "dist/**"
@@ -64,5 +65,5 @@
   "sideEffects": false,
   "types": "./dist/index.d.ts",
   "url": "https://github.com/phonowell/fire-compiler",
-  "version": "0.0.6"
+  "version": "0.0.7"
 }

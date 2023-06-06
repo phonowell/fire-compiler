@@ -1,6 +1,6 @@
 import c2a from 'coffee-ahk'
-import read from 'fire-keeper/dist/read'
-import write from 'fire-keeper/dist/write'
+import read from 'fire-keeper/dist/esm/read'
+import write from 'fire-keeper/dist/esm/write'
 
 // interface
 
@@ -16,11 +16,7 @@ const asCode = (code: string, option: Option = {}) =>
     save: false,
   })
 
-const asFile = async (
-  source: `${string}.coffee`,
-  target = '',
-  option: Option = {},
-) => {
+const asFile = async (source: string, target = '', option: Option = {}) => {
   const code = await read<string>(source)
   if (!code) return
 

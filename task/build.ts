@@ -8,7 +8,7 @@ const main = async () => {
 
 const replaceRollup = async () => {
   const listModule = (await $.glob('./source/*.ts')).map($.getBasename)
-  const source = './rollup.config.js'
+  const source = './rollup.config.ts'
   const cont = await $.read(source)
   if (!cont) return
   const content = cont.replace(

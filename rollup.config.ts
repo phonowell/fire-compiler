@@ -4,6 +4,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import autoExternal from 'rollup-plugin-auto-external'
 import del from 'rollup-plugin-delete'
 import typescript from 'rollup-plugin-typescript2'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 const config = [
   {
@@ -43,6 +44,7 @@ const config = [
       resolve(),
       commonjs(),
       json(),
+      visualizer(),
     ],
   },
 ]
