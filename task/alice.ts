@@ -1,7 +1,4 @@
-import argv from 'fire-keeper/dist/argv'
-import getBasename from 'fire-keeper/dist/getBasename'
-import glob from 'fire-keeper/dist/glob'
-import prompt from 'fire-keeper/dist/prompt'
+import { argv, getBasename, glob, prompt } from 'fire-keeper'
 import compact from 'lodash/compact'
 
 // interface
@@ -22,7 +19,7 @@ const ask = async (list: string[]): Promise<string> => {
   return answer
 }
 
-const load = async () => {
+const load = async (): Promise<string[]> => {
   const listSource = await glob(['./task/*.js', './task/*.ts', '!*.d.ts'])
 
   const listResult = listSource.map(source => {
@@ -34,7 +31,9 @@ const load = async () => {
 }
 
 const main = async () => {
-  const task = argv()._[0] ? argv()._[0].toString() : await ask(await load())
+  const task = argv()._[0]
+    ? argv()._[0].toString()
+    : await (async () => ask(await load()))()
 
   if (!task) return
   await run(task)
@@ -43,7 +42,7 @@ const main = async () => {
 const run = async (task: string) => {
   const [source] = await glob([`./task/${task}.js`, `./task/${task}.ts`])
 
-  const fn: FnAsync = (await import(source)).default
+  const fn = ((await import(source)) as { default: FnAsync }).default
   await fn()
 }
 

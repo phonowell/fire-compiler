@@ -1,9 +1,5 @@
 import compile from './compile'
 import {
-  asCode as compileCoffeeAsCode,
-  asFile as compileCoffeeAsFile,
-} from './compileCoffee'
-import {
   asCode as compilePugAsCode,
   asFile as compilePugAsFile,
 } from './compilePug'
@@ -16,11 +12,9 @@ import {
   asFile as compileTsAsFile,
 } from './compileTs'
 import { asFile as compileYamlAsFile } from './compileYaml'
+
 const $ = {
   compile,
-  compileCoffee: compileCoffeeAsFile,
-  compileCoffeeAsCode,
-  compileCoffeeAsFile,
   compilePug: compilePugAsFile,
   compilePugAsCode,
   compilePugAsFile,

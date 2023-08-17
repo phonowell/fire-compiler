@@ -24,9 +24,8 @@ const asCode = async (code: string, option: Option = {}) => {
     })
     return option.minify ? minify(result, { comments: false }).css : result
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.log(err)
-    return
+    return undefined
   }
 }
 

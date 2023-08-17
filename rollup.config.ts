@@ -10,7 +10,6 @@ const config = [
   {
     input: {
       compile: 'source/compile.ts',
-      compileCoffee: 'source/compileCoffee.ts',
       compilePug: 'source/compilePug.ts',
       compileStyl: 'source/compileStyl.ts',
       compileTs: 'source/compileTs.ts',

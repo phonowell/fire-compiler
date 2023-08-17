@@ -11,16 +11,15 @@ type Option = {
 
 // function
 
-const asCode = async (code: string, option: Option = {}) => {
+const asCode = (code: string, option: Option = {}) => {
   try {
     return pug.render(code, {
       basedir: option.base,
       pretty: !option.minify,
     })
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.log(err)
-    return
+    return undefined
   }
 }
 
@@ -30,7 +29,7 @@ const asFile = async (source: string, target = '', option: Option = {}) => {
 
   const t = target || source.replace('.pug', '.html')
 
-  await write(t, await asCode(code, option))
+  await write(t, asCode(code, option))
 }
 
 // export

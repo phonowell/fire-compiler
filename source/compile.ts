@@ -1,7 +1,3 @@
-import {
-  asFile as compileCoffeeAsFile,
-  Option as OptionCoffee,
-} from './compileCoffee'
 import { asFile as compilePugAsFile, Option as OptionPug } from './compilePug'
 import { asFile as compileStylAsFile } from './compileStyl'
 import { asFile as compileTsAsFile, Option as OptionTs } from './compileTs'
@@ -11,9 +7,7 @@ import { asFile as compileYamlAsFile } from './compileYaml'
 
 type Ext = (typeof listExt)[number]
 
-type Option<S> = S extends SourceExt<'.coffee'>
-  ? OptionCoffee
-  : S extends SourceExt<'.pug'>
+type Option<S> = S extends SourceExt<'.pug'>
   ? OptionPug
   : S extends SourceExt<'.styl'>
   ? never
@@ -27,15 +21,11 @@ type SourceExt<E extends Ext> = `${string}${E}`
 
 // varialbe
 
-const listExt = ['.coffee', '.pug', '.styl', '.ts', '.yaml'] as const
+const listExt = ['.pug', '.styl', '.ts', '.yaml'] as const
 
 // function
 
 const asFile = async <S extends string>(source: S, option?: Option<S>) => {
-  if (isSourceExt(source, '.coffee')) {
-    await compileCoffeeAsFile(source, '', option)
-    return
-  }
   if (isSourceExt(source, '.pug')) {
     await compilePugAsFile(source, '', option)
     return
@@ -50,7 +40,6 @@ const asFile = async <S extends string>(source: S, option?: Option<S>) => {
   }
   if (isSourceExt(source, '.yaml')) {
     await compileYamlAsFile(source, '')
-    return
   }
 }
 

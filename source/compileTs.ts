@@ -34,19 +34,18 @@ const asCode = async (code: string, option: Option = {}) => {
           decorators: true,
           dynamicImport: true,
         },
-        target: option.target || 'es2022',
+        target: option.target ?? 'es2022',
       },
       minify: !!option.minify,
-      module: { type: option.module || 'commonjs' },
+      module: { type: option.module ?? 'commonjs' },
       sourceMaps: !!option.sourceMaps,
     })
     return option.minify
       ? result.code
       : prettier.format(result.code, { parser: 'babel' })
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.log(err)
-    return
+    return undefined
   }
 }
 
