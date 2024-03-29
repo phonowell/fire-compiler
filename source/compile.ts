@@ -7,15 +7,16 @@ import { asFile as compileYamlAsFile } from './compileYaml'
 
 type Ext = (typeof listExt)[number]
 
-type Option<S> = S extends SourceExt<'.pug'>
-  ? OptionPug
-  : S extends SourceExt<'.styl'>
-  ? never
-  : S extends SourceExt<'.ts'>
-  ? OptionTs
-  : S extends SourceExt<'.yaml'>
-  ? never
-  : Record<string, unknown>
+type Option<S> =
+  S extends SourceExt<'.pug'>
+    ? OptionPug
+    : S extends SourceExt<'.styl'>
+      ? never
+      : S extends SourceExt<'.ts'>
+        ? OptionTs
+        : S extends SourceExt<'.yaml'>
+          ? never
+          : Record<string, unknown>
 
 type SourceExt<E extends Ext> = `${string}${E}`
 
